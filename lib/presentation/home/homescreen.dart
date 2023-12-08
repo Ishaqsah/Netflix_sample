@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:netflixapp/core/colors/colors.dart';
-import 'package:netflixapp/core/colors/constand.dart';
+import 'package:netflixapp/core/constand.dart';
 import 'package:netflixapp/presentation/home/widgets/number_list_tile.dart';
 import 'package:netflixapp/presentation/widgets/icons/iconTextColm.dart';
 import 'package:netflixapp/presentation/widgets/main_list_tile.dart';
@@ -131,12 +131,12 @@ class Homescreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-            const    CustomIconButtons(
+                const CustomIconButtons(
                   icon: Icons.add,
                   text: "My List",
                 ),
                 _playbutton(),
-             const   CustomIconButtons(icon: Icons.info, text: 'Info')
+                const CustomIconButtons(icon: Icons.info, text: 'Info')
               ],
             ),
           ),
@@ -167,5 +167,3 @@ class Homescreen extends StatelessWidget {
         ));
   }
 }
-
-

@@ -1,6 +1,8 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:netflixapp/domain/core/failures/mainfailures.dart';
 import 'package:netflixapp/domain/downloads/i_downloads_repo.dart';
 import 'package:netflixapp/domain/downloads/models/downloadmodel.dart';
@@ -9,13 +11,14 @@ part 'downloads_event.dart';
 part 'downloads_state.dart';
 part 'downloads_bloc.freezed.dart';
 
+@injectable
 class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
   final IdownloadsRepo _idownloadrepo;
 
   DownloadsBloc(this._idownloadrepo) : super(DownloadsState.initial()) {
     on<_getdownloadsImage>((event, emit) async {
       emit(state.copyWith(
-        isloading: false,
+        isloading: true,
         downloadsFailureOrSuccesOption: none(),
       ));
       final Either<MainFailure, List<DownloadsModels>> downloadoptions =
@@ -28,8 +31,8 @@ class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
           (success) => state.copyWith(
               isloading: false,
               downloadmodel: success,
-              downloadsFailureOrSuccesOption: some(right(success),
-              
+              downloadsFailureOrSuccesOption: some(
+                right(success),
               ))));
     });
   }

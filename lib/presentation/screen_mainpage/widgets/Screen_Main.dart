@@ -7,29 +7,25 @@ import 'package:netflixapp/presentation/screen_mainpage/widgets/widgets/bottom_n
 import 'package:netflixapp/presentation/search/Search_screen.dart';
 
 class ScreenMain extends StatelessWidget {
-   ScreenMain({super.key});
+  ScreenMain({super.key});
 
   final _pages = [
-   Homescreen(),
+    Homescreen(),
     NewandHotScreen(),
     FastlaughScreen(),
     SearchScreen(),
     DownloadsScreen(),
-    
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ValueListenableBuilder(
-        valueListenable: indexchangenotifier,
-        builder:(context, index, _) {
-          
-        
-          return _pages[index];
-        }
-      ),
-       bottomNavigationBar: BottomnavigationWidget(),
+          valueListenable: indexchangenotifier,
+          builder: (context, index, _) {
+            return _pages[index];
+          }),
+      bottomNavigationBar: BottomnavigationWidget(),
     );
   }
 }

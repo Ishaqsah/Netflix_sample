@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflixapp/core/colors/colors.dart';
-import 'package:netflixapp/core/colors/constand.dart';
+import 'package:netflixapp/core/constand.dart';
 import 'package:netflixapp/presentation/widgets/icons/iconTextColm.dart';
 
 class EveronesWatchings extends StatelessWidget {
@@ -8,17 +8,12 @@ class EveronesWatchings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ListView.builder
-    
-    (
+    return ListView.builder(
       itemCount: 5,
-      itemBuilder: (context , index)=>EveryonesWidget(),  )  ;   
+      itemBuilder: (context, index) => EveryonesWidget(),
+    );
   }
 }
-
-
-
-
 
 class EveryonesWidget extends StatelessWidget {
   const EveryonesWidget({
@@ -70,7 +65,6 @@ class EveryonesWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CustomIconButtons(icon: Icons.share, text: "Share"),
-    
             width20,
             CustomIconButtons(icon: Icons.add, text: "My List"),
             width20,
@@ -78,7 +72,6 @@ class EveryonesWidget extends StatelessWidget {
             width20,
           ],
         ),
-
         hight30
       ],
     );

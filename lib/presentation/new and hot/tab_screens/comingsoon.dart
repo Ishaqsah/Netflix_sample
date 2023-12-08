@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflixapp/core/colors/colors.dart';
-import 'package:netflixapp/core/colors/constand.dart';
+import 'package:netflixapp/core/constand.dart';
 import 'package:netflixapp/presentation/widgets/icons/iconTextColm.dart';
 
 class ComingsoonTab extends StatelessWidget {

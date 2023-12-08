@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflixapp/application/downloads_bloc/downloads_bloc.dart';
+import 'package:netflixapp/core/Url%20&%20Strings/url_strings.dart';
 import 'package:netflixapp/core/colors/colors.dart';
-import 'package:netflixapp/core/colors/constand.dart';
+import 'package:netflixapp/core/constand.dart';
 import 'package:netflixapp/presentation/widgets/appbarwidget.dart';
 
 class DownloadsScreen extends StatelessWidget {
@@ -10,7 +13,7 @@ class DownloadsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widgetlist =  [
+    final widgetlist = [
       const _smartDownloads(),
       const Section2(),
       const Section3(),
@@ -24,9 +27,11 @@ class DownloadsScreen extends StatelessWidget {
           )),
       body: SafeArea(
           child: ListView.separated(
-            padding: const EdgeInsets.all(10),
-        itemBuilder: (ctx , index)=> widgetlist[index],
-        separatorBuilder: (ctx,index)=> const SizedBox(height: 20,),
+        padding: const EdgeInsets.all(10),
+        itemBuilder: (ctx, index) => widgetlist[index],
+        separatorBuilder: (ctx, index) => const SizedBox(
+          height: 20,
+        ),
         itemCount: widgetlist.length,
       )),
     );
@@ -95,17 +100,16 @@ class Section2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List imagelist = [
-      'https://www.themoviedb.org/t/p/w220_and_h330_face/2I8aMfUvgRKQvEpBIQVKMbXgMsi.jpg',
-      'https://www.themoviedb.org/t/p/w220_and_h330_face/pD6sL4vntUOXHmuvJPPZAgvyfd9.jpg',
-      'https://www.themoviedb.org/t/p/w220_and_h330_face/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',
-    ];
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<DownloadsBloc>(context)
+          .add(DownloadsEvent.getdownloadsImage());
+    });
 
     final Size size = MediaQuery.of(context).size;
 
     return Column(
       children: [
-         hight20,
+        hight20,
         const Text(
           'Indroducing downloads for you',
           textAlign: TextAlign.center,
@@ -121,46 +125,53 @@ class Section2 extends StatelessWidget {
             fontSize: 17,
           ),
         ),
-
-        SizedBox(
-          height: size.width,
-          width: size.width,
-  
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              CircleAvatar(
-                radius: size.width * 0.32,
-                backgroundColor: Colors.grey.withOpacity(0.5),
-              ),
-              downloadsimageWidgets(
-                imagelist: imagelist[0],
-                margin: EdgeInsets.only(left: 180, bottom: 15),
-                angle: 15,
-                size: Size(
-                  size.width * 0.30,
-                  size.width * 0.44,
-                ),
-              ),
-              downloadsimageWidgets(
-                imagelist: imagelist[1],
-                margin: EdgeInsets.only(right: 180, bottom: 15),
-                angle: -13,
-                size: Size(
-                  size.width * 0.30,
-                  size.width * 0.44,
-                ),
-              ),
-              downloadsimageWidgets(
-                imagelist: imagelist[2],
-                margin: EdgeInsets.only(),
-                size: Size(
-                  size.width * 0.33,
-                  size.width * 0.48,
-                ),
-              ),
-            ],
-          ),
+        BlocBuilder<DownloadsBloc, DownloadsState>(
+          builder: (context, state) {
+            return SizedBox(
+              height: size.width,
+              width: size.width,
+              child: state.isloading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: size.width * 0.32,
+                          backgroundColor: Colors.grey.withOpacity(0.5),
+                        ),
+                        downloadsimageWidgets(
+                          imagelist:
+                              '$imageUpendUrl${state.downloadmodel?[0].posterPath}',
+                          margin: EdgeInsets.only(left: 180, bottom: 15),
+                          angle: 15,
+                          size: Size(
+                            size.width * 0.30,
+                            size.width * 0.44,
+                          ),
+                        ),
+                        downloadsimageWidgets(
+                          imagelist:
+                              '$imageUpendUrl${state.downloadmodel?[1].posterPath}',
+                          margin: EdgeInsets.only(right: 180, bottom: 15),
+                          angle: -13,
+                          size: Size(
+                            size.width * 0.30,
+                            size.width * 0.44,
+                          ),
+                        ),
+                        downloadsimageWidgets(
+                          imagelist:
+                              '$imageUpendUrl${state.downloadmodel?[2].posterPath}',
+                          margin: EdgeInsets.only(),
+                          size: Size(
+                            size.width * 0.33,
+                            size.width * 0.48,
+                          ),
+                        ),
+                      ],
+                    ),
+            );
+          },
         ),
       ],
     );
@@ -179,8 +190,8 @@ class Section3 extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: MaterialButton(
-              shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
               color: Kbuttoncolorblue,
               onPressed: () {},
               child: const Padding(

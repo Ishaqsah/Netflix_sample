@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflixapp/core/colors/constand.dart';
+import 'package:netflixapp/core/constand.dart';
 import 'package:netflixapp/presentation/search/widgets/title.dart';
 
 class SearchResultwidget extends StatelessWidget {
@@ -20,7 +20,7 @@ class SearchResultwidget extends StatelessWidget {
           crossAxisCount: 3,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
-          childAspectRatio: 1/1.4,
+          childAspectRatio: 1 / 1.4,
           children: List.generate(20, (index) => const MainCard()),
         ))
       ],
@@ -34,9 +34,8 @@ class MainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(5),
           image: DecorationImage(
               image: NetworkImage(
                   'https://www.themoviedb.org/t/p/w220_and_h330_face/pD6sL4vntUOXHmuvJPPZAgvyfd9.jpg'),

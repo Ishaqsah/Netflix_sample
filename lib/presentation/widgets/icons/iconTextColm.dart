@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:netflixapp/core/colors/colors.dart';
 
-
-
-/// colume icons and text 
+/// colume icons and text
 class CustomIconButtons extends StatelessWidget {
   const CustomIconButtons({
     super.key,
     required this.icon,
-    required this.text,  this.iconsize = 30,
-  this.fontsize = 16,
+    required this.text,
+    this.iconsize = 30,
+    this.fontsize = 16,
   });
 
   final IconData icon;
@@ -28,7 +27,7 @@ class CustomIconButtons extends StatelessWidget {
         ),
         Text(
           text,
-          style:  TextStyle(fontSize: fontsize, color: Kwhitecolor),
+          style: TextStyle(fontSize: fontsize, color: Kwhitecolor),
         )
       ],
     );
