@@ -5,7 +5,7 @@ part 'search_model.g.dart';
 @JsonSerializable()
 class SearchModel {
   @JsonKey(name: 'results')
-  List<SeachResultModel>? results;
+  List<SeachResultModel> results;
 
   SearchModel({
     this.results=const [],

@@ -11,7 +11,7 @@ import 'package:netflixapp/domain/search/model/search_model/search_model.dart';
 @LazySingleton(as: IsearchRepo)
 class SearchRepositry implements IsearchRepo {
   @override
-  Future<Either<MainFailure, SeachResultModel>> searchmovies(
+  Future<Either<MainFailure, SearchModel>> searchmovies(
       {required String moviequery}) async {
     try {
       final Response response =
@@ -19,8 +19,10 @@ class SearchRepositry implements IsearchRepo {
         'query': moviequery,
       });
 
+      log(response.data.toString());
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final searchresult = SeachResultModel.fromJson(response.data);
+        final searchresult = SearchModel.fromJson(response.data);
 
         return right(searchresult);
       } else {

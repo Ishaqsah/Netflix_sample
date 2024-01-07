@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflixapp/application/search/search_bloc.dart';
+import 'package:netflixapp/core/Url%20&%20Strings/url_strings.dart';
+import 'package:netflixapp/core/colors/colors.dart';
 import 'package:netflixapp/core/constand.dart';
 import 'package:netflixapp/presentation/search/widgets/title.dart';
 
@@ -14,14 +18,22 @@ class SearchResultwidget extends StatelessWidget {
           title: 'Movies & TV',
         ),
         hight10,
-        Expanded(
-            child: GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 3,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          childAspectRatio: 1 / 1.4,
-          children: List.generate(20, (index) => const MainCard()),
+        Expanded(child: BlocBuilder<SearchBloc, SearchState>(
+          builder: (context, state) {
+            return GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1 / 1.4,
+              children: List.generate(20, (index) {
+                final movie = state.searchresultlist[index];
+               return MainCard(
+                 imageurl:'$imageUpendUrl${movie.posterPath}' ?? 'error'
+               );
+              } ),
+            );
+          },
         ))
       ],
     );
@@ -29,17 +41,16 @@ class SearchResultwidget extends StatelessWidget {
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
-
+  const MainCard({super.key, required this.imageurl});
+  final String imageurl;
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(5),
           image: DecorationImage(
-              image: NetworkImage(
-                  'https://www.themoviedb.org/t/p/w220_and_h330_face/pD6sL4vntUOXHmuvJPPZAgvyfd9.jpg'),
-              fit: BoxFit.cover)),
+              image: NetworkImage(imageurl), fit: BoxFit.cover)),
     );
   }
 }

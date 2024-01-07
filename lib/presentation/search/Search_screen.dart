@@ -4,19 +4,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netflixapp/application/search/search_bloc.dart';
 import 'package:netflixapp/core/colors/colors.dart';
 import 'package:netflixapp/core/constand.dart';
+import 'package:netflixapp/domain/core/debounce/debounce.dart';
 import 'package:netflixapp/presentation/search/widgets/Search_Result.dart';
 import 'package:netflixapp/presentation/search/widgets/Search_idel.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
+   SearchScreen({super.key});
+
+  final _debounce = Debouncer(milliseconds: 1000);
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      BlocProvider.of<SearchBloc>(context).add(initials());
-    },);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        BlocProvider.of<SearchBloc>(context).add(initials());
+      },
+    );
     return Scaffold(
-      
       body: SafeArea(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,10 +37,27 @@ class SearchScreen extends StatelessWidget {
               suffixIcon: const Icon(CupertinoIcons.xmark_circle_fill,
                   color: Kgreycolor),
               style: const TextStyle(color: Colors.white),
+              onChanged: (value) {
+                if(value.isEmpty){
+                  return;
+                }
+                _debounce.run(() {
+                
+                BlocProvider.of<SearchBloc>(context)
+                    .add(searchmovie(movieQuery: value));
+                });
+              },
             ),
           ),
-          Expanded(child: const SearchIdlewidget()),
-          Expanded(child: const SearchResultwidget()),
+          Expanded(child: BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              
+              return
+              state.searchresultlist.isEmpty? 
+               SearchIdlewidget(): SearchResultwidget();
+            },
+          )),
+        
         ],
       )),
     );

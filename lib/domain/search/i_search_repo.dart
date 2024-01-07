@@ -4,7 +4,7 @@ import 'package:netflixapp/domain/search/model/search_model/search_model.dart';
 
 abstract class IsearchRepo{
 
- Future<Either<MainFailure , SeachResultModel>> searchmovies(
+ Future<Either<MainFailure , SearchModel>> searchmovies(
   {required String moviequery}
 
  );

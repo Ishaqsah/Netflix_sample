@@ -27,7 +27,7 @@ class NumberMainCard extends StatelessWidget {
                   borderRadius: borderRadious5,
                   image: const DecorationImage(
                       image: NetworkImage(
-                          'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vBZ0qvaRxqEhZwl6LWmruJqWE8Z.jpg'),
+                          'https://images.pexels.com/photos/18128465/pexels-photo-18128465/free-photo-of-a-woman-walking-in-front-of-a-modern-building.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
                       fit: BoxFit.cover)),
             ),
           ],

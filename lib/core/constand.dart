@@ -30,7 +30,7 @@ final BorderRadius borderRadious10 = BorderRadius.circular(10);
 ///images
 
 const mainImageURL =
-    'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/j9mH1pr3IahtraTWxVEMANmPSGR.jpg';
+    'https://images.pexels.com/photos/19397660/pexels-photo-19397660/free-photo-of-reflection-of-a-brunette-woman-in-a-mirror.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
 // textstyle
 

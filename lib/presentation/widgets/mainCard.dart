@@ -16,7 +16,7 @@ class MainImageCard extends StatelessWidget {
           borderRadius: borderRadious5,
           image: const DecorationImage(
               image: NetworkImage(
-                  'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg'),
+                  'https://images.pexels.com/photos/19133309/pexels-photo-19133309/free-photo-of-young-woman-in-a-hijab-walking-in-front-of-a-monumental-building.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
               fit: BoxFit.cover)),
     );
   }
