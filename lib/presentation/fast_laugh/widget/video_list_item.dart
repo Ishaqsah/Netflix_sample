@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:netflixapp/core/Url%20&%20Strings/url_strings.dart';
 import 'package:netflixapp/core/colors/colors.dart';
+import 'package:netflixapp/domain/downloads/models/downloadmodel.dart';
+
+class Videolistiteminheritege extends InheritedWidget {
+  final Widget widget;
+  final DownloadsModels moviedata;
+
+ const Videolistiteminheritege(
+      {Key? key, required this.widget, required this.moviedata})
+      : super(key: key,   child: widget);
+
+  @override
+  bool updateShouldNotify(covariant Videolistiteminheritege oldWidget) {
+    return oldWidget.moviedata != moviedata;
+  }
+
+  static Videolistiteminheritege? of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<Videolistiteminheritege>();
+  }
+}
 
 class VideoListItem extends StatelessWidget {
   const VideoListItem({super.key, required this.index});
@@ -8,6 +29,10 @@ class VideoListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final posterpath = Videolistiteminheritege.of(context)?.moviedata.posterPath;
+
+
     return Stack(
       children: [
         Container(
@@ -16,7 +41,7 @@ class VideoListItem extends StatelessWidget {
         Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,7 +50,7 @@ class VideoListItem extends StatelessWidget {
                   CircleAvatar(
                       radius: 25,
                       backgroundColor: Colors.black.withOpacity(0.5),
-                      child: Center(
+                      child: const Center(
                           child: Icon(
                         Icons.volume_off,
                         size: 30,
@@ -34,10 +59,13 @@ class VideoListItem extends StatelessWidget {
 
                   // right side
 
-                  Column(
+                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CircleAvatar(),
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: posterpath == null ?null:  NetworkImage("$imageUpendUrl$posterpath" ,),
+                      ),
                       videoActionWidget(
                           icons: Icons.emoji_emotions, title: 'LOL'),
                       videoActionWidget(icons: Icons.add, title: 'My list'),
@@ -73,7 +101,7 @@ class videoActionWidget extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
         ],
       ),

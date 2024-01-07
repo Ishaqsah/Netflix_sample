@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netflixapp/application/downloads_bloc/downloads_bloc.dart';
+import 'package:netflixapp/application/fast_laugh/fast_laugh_bloc.dart';
 import 'package:netflixapp/application/search/search_bloc.dart';
 import 'package:netflixapp/core/colors/colors.dart';
 import 'package:netflixapp/domain/core/Di/dependency_injection.dart';
@@ -23,6 +24,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (ctxx) => getit<SearchBloc>(),
+          
+        ),
+          BlocProvider(
+          create: (ctxx) => getit<FastLaughBloc>(),
           
         )
       ],
